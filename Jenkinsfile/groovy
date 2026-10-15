@@ -1,0 +1,27 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Connected to GitHub'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'if not exist index.html exit /b 1'
+                echo 'Website build successful'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'if not exist deploy mkdir deploy'
+                bat 'copy /Y index.html deploy\\index.html'
+                echo 'Website deployed successfully'
+            }
+        }
+    }
+}
